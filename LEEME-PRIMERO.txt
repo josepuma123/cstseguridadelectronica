@@ -1,0 +1,7 @@
+EMPIEZA AQUI
+
+1. Abre INICIO-AQUI.md para seguir los pasos más sencillos.
+2. Abre docs/guia-mantenimiento.md para ver qué archivo cambiar.
+3. Abre docs/guia-fotos-y-videos.md para agregar o reemplazar fotos y videos.
+
+Antes de editar, duplica la carpeta completa como respaldo.
