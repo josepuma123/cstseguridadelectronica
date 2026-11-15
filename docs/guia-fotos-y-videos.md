@@ -1,94 +1,98 @@
-# Fotos y videos en la página de CST
+# Guía sencilla para fotos y videos
 
-Sigue estos pasos cuando quieras mostrar una instalación o un equipo real. No necesitas cambiar el diseño: el espacio ya está preparado.
+Esta guía explica cómo cambiar la foto o el video de la sección **“Siempre a la vista”**. Solo modificarás un archivo de configuración y copiarás tu foto o video a la carpeta indicada. **No edites index.html ni estilos.css para cambiar la multimedia.**
 
-## Primero: prepara los archivos
+## El recorrido
 
-1. Elige una foto o video aprobado por CST.
-2. En el Explorador de archivos, abre `assets`, luego `images` y después `media`.
-3. Copia el archivo dentro de `assets/images/media/`. Esta carpeta ya existe.
-5. Ponle un nombre corto, sin espacios ni tildes. Ejemplos: `acceso-casa.jpg`, `instalacion-local.mp4`.
+~~~text
+  1. HAZ UN RESPALDO     2. COPIA EL ARCHIVO        3. CAMBIA 3 DATOS       4. GUARDA Y REVISA
+  Duplica la carpeta  →  assets/images/media/  →  sitio.js: media       →  recarga la página
+~~~
 
-La ruta completa se escribe así:
+## Paso 1: prepara la foto o el video
 
-```text
-assets/images/media/acceso-casa.jpg
-```
+1. Usa una foto o un video que CST tenga permiso para publicar.
+2. Ponle un nombre corto, sin espacios ni tildes. Ejemplos: entrada-casa.webp o instalacion-nueva.mp4.
+3. Copia el archivo dentro de assets/images/media/.
+4. Para videos, usa formato MP4. Para fotos, usa JPG, PNG o WebP. Un archivo más pequeño cargará mejor en celulares.
 
-JPG, PNG y WebP funcionan para fotos. Para videos, usa MP4. Un archivo más liviano se abre más rápido en celulares. No uses imágenes o videos que CST no tenga permiso para publicar.
+La carpeta debe quedar así:
 
-## Dónde cambiar la ilustración
+~~~text
+PROPUESTA PARA LENNIS/
+└── assets/
+    └── images/
+        └── media/
+            ├── instalacion-local.mp4
+            └── instalacion-local.webp
+~~~
 
-La sección **“Siempre a la vista”** ya muestra el video `instalacion-local.mp4` con su imagen de portada. El código marca el espacio de multimedia con dos comentarios fáciles de encontrar:
+## Paso 2: abre la configuración
 
-```text
-<!-- INICIO DEL BLOQUE MULTIMEDIA ... -->
-          AQUÍ ESTÁ EL BLOQUE ACTUAL DE FOTO O VIDEO
-<!-- FIN DEL BLOQUE MULTIMEDIA ... -->
-```
+1. Haz una copia de respaldo de toda la carpeta del proyecto.
+2. Abre assets/js/sitio.js con Bloc de notas o un editor de texto.
+3. Pulsa **Ctrl + F** y busca media: {.
+4. Verás estas líneas. Cambia solo el texto entre comillas:
 
-### Pasos para reemplazarla
+~~~js
+media: {
+  type: 'video',
+  src: 'assets/images/media/instalacion-local.mp4',
+  poster: 'assets/images/media/instalacion-local.webp',
+  alt: 'Video de una instalación de seguridad electrónica de CST',
+},
+~~~
 
-1. Haz una copia de `index.html` antes de empezar.
-2. Abre `index.html` con Bloc de notas o un editor de texto.
-3. Pulsa **Ctrl + F**, busca `INICIO DEL BLOQUE MULTIMEDIA` y deja el cursor en esa zona.
-4. Selecciona el bloque completo desde `<div class="monitoring-visual">` hasta su `</div>` final, justo antes del comentario `FIN DEL BLOQUE MULTIMEDIA`.
-5. Copia uno de los bloques de ejemplo de abajo y pégalo en ese lugar.
-6. Si pegaste una foto, cambia el nombre del archivo y su texto `alt`. Si pegaste un video, cambia el nombre del MP4 y de la imagen de portada.
-7. No borres los comentarios `INICIO` y `FIN`; así sabrás dónde hacer el siguiente cambio.
-8. Pulsa **Ctrl + S**. Abre `index.html` con doble clic y pulsa **Ctrl + R** para ver el cambio.
+## Para poner otro video
 
-> Si no estás seguro de qué `</div>` corresponde al bloque, no borres nada. Usa la copia de seguridad o pide ayuda: los bloques tienen otros elementos dentro.
+1. Mantén type en 'video'.
+2. En src, escribe la ruta exacta del nuevo MP4.
+3. En poster, escribe la ruta de una imagen de portada. Si no tienes portada, deja el valor vacío: poster: ''.
+4. Cambia alt por una descripción breve del video.
 
-## Bloque listo para una fotografía
+Ejemplo:
 
-Copia el bloque completo. Cambia `acceso-casa.jpg` por el nombre exacto del archivo que guardaste en `assets/images/media/`. Cambia también `alt` para describir la imagen.
+~~~js
+media: {
+  type: 'video',
+  src: 'assets/images/media/instalacion-nueva.mp4',
+  poster: 'assets/images/media/portada-nueva.webp',
+  alt: 'Video de cámaras instaladas en un negocio de Loreto',
+},
+~~~
 
-```html
-<div class="monitoring-visual">
-  <div class="monitoring-media">
-    <img
-      class="monitoring-media__asset"
-      src="assets/images/media/acceso-casa.jpg"
-      alt="Cámara instalada por CST en el acceso de una vivienda"
-      loading="lazy"
-    />
-  </div>
-</div>
-```
+El video tendrá controles para reproducir, pausar y ajustar el volumen. No comenzará solo.
 
-**Ejemplo:** si el archivo se llama `instalacion-local.webp`, cambia la ruta por `assets/images/media/instalacion-local.webp`. El texto `alt` debe explicar qué se ve, no repetir el nombre del archivo.
+## Para poner una fotografía
 
-## Bloque listo para un video
+1. Cambia type a 'image'.
+2. En src, escribe la ruta exacta de tu foto.
+3. En alt, explica qué aparece en la fotografía. El texto ayuda a las personas que usan lectores de pantalla y a los buscadores.
+4. poster se usa solo para videos; puedes dejarlo vacío.
 
-Antes de pegarlo, copia el video y una imagen de portada a `assets/images/media/`. La portada puede ser una foto JPG del video. Cambia ambos nombres por los archivos reales.
+Ejemplo:
 
-```html
-<div class="monitoring-visual">
-  <div class="monitoring-media">
-    <video
-      class="monitoring-media__asset"
-      controls
-      preload="metadata"
-      poster="assets/images/media/instalacion-portada.jpg"
-      aria-label="Video de una instalación de seguridad electrónica"
-    >
-      <source src="assets/images/media/instalacion-local.mp4" type="video/mp4" />
-      Tu navegador no puede reproducir este video.
-    </video>
-  </div>
-</div>
-```
+~~~js
+media: {
+  type: 'image',
+  src: 'assets/images/media/entrada-casa.webp',
+  poster: '',
+  alt: 'Cámara instalada por CST en la entrada de una vivienda',
+},
+~~~
 
-- El botón **controls** permite reproducir, pausar y ajustar el volumen.
-- **No añadas `autoplay`**: el video no debe empezar solo.
-- Si no tienes una imagen de portada, elimina solamente la línea `poster="..."`.
+## Paso 3: guarda y revisa
 
-## Si la foto no aparece
+1. Pulsa **Ctrl + S**.
+2. Abre index.html en el navegador y pulsa **Ctrl + R**.
+3. Comprueba que se vea la foto o el video y que el video reproduzca con sonido.
+4. Al publicar en GitHub Pages, sube tanto el cambio de assets/js/sitio.js como el archivo nuevo de assets/images/media/.
 
-1. Comprueba que el archivo esté dentro de `assets/images/media/`.
-2. Comprueba que el nombre de `src` sea idéntico al del archivo, incluida la extensión `.jpg`, `.png` o `.webp`.
-3. Revisa que las carpetas se llamen exactamente `assets`, `images` y `media`.
-4. Guarda `index.html` y recarga el navegador con **Ctrl + R**.
+## Si no aparece
 
-Para instrucciones más generales sobre la página, consulta [INICIO-AQUI.md](../INICIO-AQUI.md) y [guia-mantenimiento.md](guia-mantenimiento.md).
+- Revisa que el archivo esté dentro de assets/images/media/.
+- Compara cuidadosamente el nombre y la extensión en src con el nombre real del archivo.
+- Conserva las comillas simples, las comas y las llaves del bloque.
+- Si algo quedó mal, restaura la copia de respaldo y vuelve a intentarlo.
+
+Para cambiar datos, preguntas frecuentes o reseñas, consulta [guia-mantenimiento.md](guia-mantenimiento.md). Para empezar, abre [INICIO-AQUI.md](../INICIO-AQUI.md).
